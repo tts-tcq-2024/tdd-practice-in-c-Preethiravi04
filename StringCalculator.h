@@ -1,4 +1,4 @@
-int isEmptyString (const char* input)
+int isEmptyString (const char* str)
 {
   if (str == NULL || str[0] == '\0') {
         return TRUE; // The string is empty
