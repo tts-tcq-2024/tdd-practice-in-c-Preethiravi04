@@ -1,21 +1,3 @@
-/* int isEmptyString (const char* str)
-{
-  if (str == NULL || str[0] == '\0') {
-        return TRUE; // The string is empty
-    }
-   return FALSE;
-}
-
-int add(const char* str)
-{
-  if(isEmptyString(str) == TRUE)
-{
-return 0;
-}
-return -1;
-}*/
-
-//input values should be less than 1001
 int add_arr(int *arr,int cnt)
 {
     int i = 0;
@@ -68,7 +50,6 @@ void strtonum(const char* ch, int *num_arr,int *cnt)
     }
 }
  
-//sum of the inputs
 int sum(const char *ch)
 {
     int cnt =0;
@@ -84,7 +65,6 @@ int sum(const char *ch)
     return total;
 }
  
-//check if its a negative number
 int neg_loop(const char *ch,int i)
 {
       if(ch[i] == '-')
@@ -112,7 +92,6 @@ int check_neg(const char *ch)
     return res;
 }
  
-//check if empty
 int check_empty(const char* ch)
 {
     int strlength = strlen(ch);
@@ -147,8 +126,7 @@ int check_string(const char *ch)
  
     return 0;
 }
- 
-// add function
+
  
 int add(const char *ch)
 {
