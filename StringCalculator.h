@@ -1,4 +1,4 @@
-
+#define MAX_NUMBERS 100
 static bool isNumber(char ch) {
     return ch >= '0' && ch <= '9';
 }
