@@ -46,7 +46,6 @@ void handleEndOfNumber(int &num, bool &negative, int* numArr, int &count) {
     negative = false; // Reset negative flag for the next number
 }
 
-// Function to process a character
 void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count, char delimiter) {
     if (ch == '-') {
         handleNegative(negative);
@@ -55,23 +54,6 @@ void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count
     } else if (ch == delimiter || ch == '\n') {
         handleEndOfNumber(num, negative, numArr, count);
     }
-}
-
-void handleNegative(bool &negative) {
-    negative = !negative;
-}
-
-void handleDigit(char ch, int &num) {
-    num = num * 10 + (ch - '0');
-}
-
-void handleEndOfNumber(int &num, bool negative, int* numArr, int &count) {
-    if (negative) {
-        num = -num;
-    }
-    numArr[count++] = num;
-    num = 0; // Reset num for the next number
-    negative = false; // Reset negative for the next number
 }
 
 static int extractNumbers(const char* str, int* numArr, char delimiter) {
