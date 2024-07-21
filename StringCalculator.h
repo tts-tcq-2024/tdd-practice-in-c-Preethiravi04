@@ -76,60 +76,20 @@ static char getCustomDelimiter(const char* numbers) {
     return numbers[2];
 }
 
-char getCustomDelimiter(const char* numbers);
-int extractNumbers(const char* numbers, int* numArr, char delimiter);
-int addNumbers(int* numArr, int count);
-
-// Main add function
 int add(const char* numbers) {
-    if (!numbers || strlen(numbers) == 0) {
+    if (numbers == NULL || strlen(numbers) == 0) {
         return 0;
     }
 
-    char delimiter = ',';
-    int numArr[MAX_NUMBERS];
+    int numArr[MAX_NUMBERS] = {0};
     int count = 0;
+    char delimiter = ',';
 
-    // Check for and handle custom delimiter
     if (numbers[0] == '/' && numbers[1] == '/') {
         delimiter = getCustomDelimiter(numbers);
-        numbers += 4; // Skip the custom delimiter part
+        numbers += 4;
     }
 
-    // Extract numbers using the determined delimiter
     count = extractNumbers(numbers, numArr, delimiter);
-
-    // Sum and return the result
     return addNumbers(numArr, count);
-}
-
-// Extract the custom delimiter (assuming single character)
-char getCustomDelimiter(const char* numbers) {
-    return numbers[2]; // Custom delimiter is the third character
-}
-
-// Extract numbers from the string based on the delimiter
-int extractNumbers(const char* numbers, int* numArr, char delimiter) {
-    int count = 0;
-    char* token;
-    char str[256];
-    
-    strcpy(str, numbers); // Make a mutable copy of the input
-    token = strtok(str, &delimiter);
-    
-    while (token && count < MAX_NUMBERS) {
-        numArr[count++] = atoi(token);
-        token = strtok(NULL, &delimiter);
-    }
-    
-    return count;
-}
-
-// Sum the numbers
-int addNumbers(int* numArr, int count) {
-    int sum = 0;
-    for (int i = 0; i < count; ++i) {
-        sum += numArr[i];
-    }
-    return sum;
 }
