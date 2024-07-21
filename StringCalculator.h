@@ -46,12 +46,16 @@ void handleEndOfNumber(int &num, bool &negative, int* numArr, int &count) {
     negative = false; // Reset negative flag for the next number
 }
 
+void IsDelimiter(char ch, char delimiter)
+{
+    return (ch == delimiter || ch == '\n');
+}
 void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count, char delimiter) {
     if (ch == '-') {
         handleNegative(negative);
     } else if (isdigit(ch)) {
         handleDigit(ch, num);
-    } else if (ch == delimiter || ch == '\n') {
+    } else if (IsDelimiter(ch, delimiter)) {
         handleEndOfNumber(num, negative, numArr, count);
     }
 }
