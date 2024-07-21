@@ -30,14 +30,30 @@ static void addNumber(int &num, bool negative, int* numArr, int &count) {
 }
 
 // Helper function to process each character
-static void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count, char delimiter) {
+void handleNegative(bool &negative) {
+    negative = true;
+}
+
+// Function to process digits
+void handleDigit(char ch, int &num) {
+    num = num * 10 + (ch - '0');
+}
+
+// Function to handle the end of a number
+void handleEndOfNumber(int &num, bool &negative, int* numArr, int &count) {
+    addNumber(num, negative, numArr, count);
+    num = 0; // Reset num for the next number
+    negative = false; // Reset negative flag for the next number
+}
+
+// Function to process a character
+void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count, char delimiter) {
     if (ch == '-') {
-        negative = true;
+        handleNegative(negative);
     } else if (isdigit(ch)) {
-        num = num * 10 + (ch - '0');
+        handleDigit(ch, num);
     } else if (ch == delimiter || ch == '\n') {
-        addNumber(num, negative, numArr, count);
-        negative = false; // Reset negative for the next number
+        handleEndOfNumber(num, negative, numArr, count);
     }
 }
 
