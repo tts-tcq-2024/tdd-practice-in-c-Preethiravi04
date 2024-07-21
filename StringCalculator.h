@@ -57,6 +57,23 @@ void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count
     }
 }
 
+void handleNegative(bool &negative) {
+    negative = !negative;
+}
+
+void handleDigit(char ch, int &num) {
+    num = num * 10 + (ch - '0');
+}
+
+void handleEndOfNumber(int &num, bool negative, int* numArr, int &count) {
+    if (negative) {
+        num = -num;
+    }
+    numArr[count++] = num;
+    num = 0; // Reset num for the next number
+    negative = false; // Reset negative for the next number
+}
+
 static int extractNumbers(const char* str, int* numArr, char delimiter) {
     int count = 0;
     int num = 0;
