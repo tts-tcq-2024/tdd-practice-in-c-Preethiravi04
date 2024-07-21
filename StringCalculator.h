@@ -20,29 +20,41 @@ static void processDelimiter(int &num, bool &negative, int* &numArr, int &count)
     negative = false;
 }
 
+static void processDelimiter(int &num, bool &negative, int* &numArr, int &count) {
+    if (negative) num = -num;
+    numArr[count++] = num;
+    num = 0;
+    negative = false;
+}
+
+static void handleCharacter(char ch, int &num, bool &negative) {
+    if (ch == '-') {
+        negative = true;
+    } else if (isNumber(ch)) {
+        num = num * 10 + (ch - '0');
+    }
+}
+
 static int extractNumbers(const char* str, int* numArr, char delimiter) {
     int count = 0;
     int num = 0;
     bool negative = false;
 
     for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '-') {
-            negative = true;
-        } else if (isNumber(str[i])) {
-            num = num * 10 + (str[i] - '0');
-        } else if (str[i] == delimiter || str[i] == '\n') {
+        if (str[i] == delimiter || str[i] == '\n') {
             processDelimiter(num, negative, numArr, count);
+        } else {
+            handleCharacter(str[i], num, negative);
         }
     }
 
     // Ensure to add the last number if the string doesn't end with a delimiter
-    if (isNumber(str[strlen(str) - 1])) {
+    if (str[strlen(str) - 1] != delimiter && str[strlen(str) - 1] != '\n') {
         processDelimiter(num, negative, numArr, count);
     }
 
     return count;
 }
-
 static char getCustomDelimiter(const char* numbers) {
     return numbers[2];
 }
