@@ -46,7 +46,7 @@ void handleEndOfNumber(int &num, bool &negative, int* numArr, int &count) {
     negative = false; // Reset negative flag for the next number
 }
 
-void IsDelimiter(char ch, char delimiter)
+bool IsDelimiter(char ch, char delimiter)
 {
     return (ch == delimiter || ch == '\n');
 }
