@@ -23,29 +23,40 @@ static void processNumber(int &num, bool &negative, int* &numArr, int &count) {
     negative = false;
 }
 
+static void addNumber(int &num, bool negative, int* numArr, int &count) {
+    if (negative) num = -num;
+    numArr[count++] = num;
+    num = 0;
+}
+
+// Helper function to process each character
+static void processCharacter(char ch, int &num, bool &negative, int* numArr, int &count, char delimiter) {
+    if (ch == '-') {
+        negative = true;
+    } else if (isdigit(ch)) {
+        num = num * 10 + (ch - '0');
+    } else if (ch == delimiter || ch == '\n') {
+        addNumber(num, negative, numArr, count);
+        negative = false; // Reset negative for the next number
+    }
+}
+
 static int extractNumbers(const char* str, int* numArr, char delimiter) {
     int count = 0;
     int num = 0;
     bool negative = false;
 
     for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '-') {
-            negative = true;
-        } else if (isNumber(str[i])) {
-            num = num * 10 + (str[i] - '0');
-        } else if (str[i] == delimiter || str[i] == '\n') {
-            processNumber(num, negative, numArr, count);
-        }
+        processCharacter(str[i], num, negative, numArr, count, delimiter);
     }
 
-    // Ensure to add the last number if the string doesn't end with a delimiter
-    if (num != 0 || negative) {
-        processNumber(num, negative, numArr, count);
+    // Add the last number if necessary
+    if (isdigit(str[strlen(str) - 1])) {
+        addNumber(num, negative, numArr, count);
     }
 
     return count;
 }
-
 static char getCustomDelimiter(const char* numbers) {
     return numbers[2];
 }
